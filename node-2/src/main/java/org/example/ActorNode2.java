@@ -14,17 +14,16 @@ import java.util.Set;
 
 public class ActorNode2 extends AbstractBehavior<Object> {
 
-    private ActorRef<Command> actorNode1; // Reference to discovered ActorNode1
+    private ActorRef<Command> actorNode1; 
 
-    // Adapter to handle Receptionist.Listing messages
+
     private final ActorRef<Receptionist.Listing> listingAdapter;
     private final ActorRef<Command> commandAdapter;
 
-    // Constructor
+
     public ActorNode2(ActorContext<Object> context) {
         super(context);
 
-        // Create a typed adapter for Receptionist.Listing
         this.listingAdapter = context.messageAdapter(Receptionist.Listing.class, listing -> listing);
         this.commandAdapter = context.messageAdapter(Command.class, command -> command);
     }
@@ -45,13 +44,12 @@ public class ActorNode2 extends AbstractBehavior<Object> {
     @Override
     public Receive<Object> createReceive() {
         return newReceiveBuilder()
-                .onMessage(Receptionist.Listing.class, this::onListing) // Handle Receptionist.Listing
-                .onMessage(Command.class, this::onCommand)             // Handle Command messages
+                .onMessage(Receptionist.Listing.class, this::onListing) 
+                .onMessage(Command.class, this::onCommand)       
                 .build();
     }
 
     private Behavior<Object> onListing(Receptionist.Listing listing) {
-        // Discover ActorNode1 from Receptionist
         Set<ActorRef<Command>> serviceInstances = listing.getServiceInstances(SharedServiceKeys.ACTOR_NODE1_SERVICE_KEY);
         if (!serviceInstances.isEmpty()) {
             actorNode1 = serviceInstances.iterator().next();
