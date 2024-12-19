@@ -116,11 +116,12 @@ The discovered actor processes the message and sends a reply as needed.
 Bu rehber, Akka Receptionist kullanımıyla ilgili öğrendiklerimi özetler. Receptionist, aktörlerin dinamik olarak cluster çapında keşedilmesine olanak tanır.
 
 ---
+Önceki sürümlerinde tip koruması olmayan Akka, yeni sürümlerinde tip koruması ile hataları minimum düzeye indirecek bir yapı kurmuştur.
 
 ### Temel Kavramlar
 
 #### Aktörün Receptionist’e Kaydedilmesi
-Bir aktör Receptionist'e kaydedildiğinde, Akka cluster çalışıyorsa tüm clusterda ulaşılabilir olur. Bunun için, service key’lerin **ortak bir kütüphanede** saklanması gerekir, böylece cluster’daki diğer uygulamalar bu keylere erişebilir.
+Bir aktör Receptionist'e kaydedildiğinde, Akka cluster çalışıyorsa, bu referanslar tüm clusterda ulaşılabilir olur. Service keyler ile register işlemi yapıldığında, bu service keyleri diğer nodelardaki aktörlerin de bilmesi gereklidir. Bunun için, service key’lerin **ortak bir kütüphanede** saklanması gerekir, böylece cluster’daki diğer uygulamalar da bu keylere erişebilir.
 
 Şu kod, bir aktörün Receptionist'e kaydolmasını sağlar:
 
@@ -144,7 +145,16 @@ public static Behavior<org.example.Command> create(){
 #### Aktörün Keşfedilmesi
 Bir aktörü bulmak için, ilgili service key’e `Receptionist` üzerinden subscribe olmak gerekir. Şu kod, `ActorNode1`ı keşeder:
 
+
+Normalde aktörün alacağı mesajlar `Object` tipinde olduğu için sadece o tipte mesaj alabilir.
+Service keyi ile aktörü keşfedebilmek için `Receptionist.Listing` tipinde mesaj almamız gerektiğinden, aşağıdaki şekilde bir referans oluşturup onunla subscribe olacağız. 
 ```java
+ private final ActorRef<Receptionist.Listing> listingAdapter;
+```
+kullanarak aktörün mesaj tipini değiştirmeye gerek kalmadan aktörün alabileceği mesaj 
+tiplerini genişletebiliriz. Bu da Akka Framework'ün sağladığı esnekliklerden biridir. 
+
+```java 
 public static Behavior<Object> create() {
     return Behaviors.setup(context -> {
 
