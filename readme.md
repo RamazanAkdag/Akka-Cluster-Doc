@@ -3,7 +3,23 @@
 # Akka Cluster Configuration Explanation
 
 ---
+```xml
+         <dependency>
+            <groupId>com.lightbend.akka.management</groupId>
+            <artifactId>akka-management-cluster-http_2.13</artifactId>
+            <version>${akka.management.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.lightbend.akka.management</groupId>
+            <artifactId>akka-management-cluster-bootstrap_2.13</artifactId>
+            <version>${akka.management.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.lightbend.akka.discovery</groupId>
+            <artifactId>akka-discovery-kubernetes-api_2.13</artifactId>
+            <version>${akka.management.version}</version>
 
+```
 ## **Actor Configuration**
 ```hocon
 actor {
