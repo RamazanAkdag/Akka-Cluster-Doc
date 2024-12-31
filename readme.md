@@ -18,6 +18,7 @@
             <groupId>com.lightbend.akka.discovery</groupId>
             <artifactId>akka-discovery-kubernetes-api_2.13</artifactId>
             <version>${akka.management.version}</version>
+         </dependency>
 
 ```
 ## **Actor Configuration**
