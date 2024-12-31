@@ -1,3 +1,5 @@
+# ENGLISH
+---
 # Akka Cluster Configuration Explanation
 
 ---
@@ -17,7 +19,6 @@ actor {
 }
 ```
 
-### **English Explanation**
 
 - **`provider = cluster`:**
   Indicates that the Akka system is configured to run as a cluster, enabling distributed actor communication.
@@ -51,7 +52,6 @@ akka.management {
 }
 ```
 
-### **English Explanation**
 
 - **`akka.management.cluster.bootstrap`:**
   Configures how Akka will manage cluster bootstrapping. Akka nodes will discover each other automatically using the specified method.
@@ -74,7 +74,6 @@ akka.discovery {
 }
 ```
 
-### **English Explanation**
 
 - **`akka.discovery.kubernetes-api`:**
   Configures Akka to use the Kubernetes API for node discovery.
@@ -92,7 +91,6 @@ akka.discovery {
 akka.management.cluster.bootstrap.new-cluster-enabled = on
 ```
 
-### **English Explanation**
 - Automatically enables the creation of a new cluster if one does not already exist.
 - New nodes can join the cluster automatically without manual configuration.
 
@@ -149,7 +147,6 @@ spec:
   type: ClusterIP
 ```
 
-### **English Explanation**
 
 - **`metadata`:**
     - **`name: akka-cluster-node-1`:** Name of the deployment.
@@ -171,7 +168,8 @@ spec:
 
 ---
 
-### **Türkçe Açıklama**
+# TÜRKÇE
+---
 
 ## **Actor Yapılandırması**
 ```hocon
@@ -307,8 +305,6 @@ spec:
       targetPort: 8558
   type: ClusterIP
 ```
-
-### **Türkçe Açıklama**
 
 - **`metadata`:**
     - **`name: akka-cluster-node-1`:** Deployment kaynağına verilen isim.
