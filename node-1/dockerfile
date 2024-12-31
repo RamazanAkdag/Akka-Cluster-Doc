@@ -1,0 +1,12 @@
+# Base image olarak OpenJDK kullanıyoruz
+FROM openjdk:17-jdk-slim
+
+# Çalışma dizinini ayarla
+WORKDIR /app
+
+# Maven tarafından üretilen JAR dosyasını konteyner'a kopyala
+COPY target/*.jar app.jar
+
+# Uygulamayı çalıştır
+ENTRYPOINT ["java", "-jar", "app.jar"]
+

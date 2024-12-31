@@ -54,6 +54,9 @@ public class ActorNode2 extends AbstractBehavior<Object> {
         if (!serviceInstances.isEmpty()) {
             actorNode1 = serviceInstances.iterator().next();
             getContext().getLog().info("Discovered ActorNode1: {}", actorNode1);
+
+            getContext().getLog().info("sending message to actorNode1");
+            actorNode1.tell(new Command("selamlar",null));
         } else {
             getContext().getLog().warn("ActorNode1 not found in the cluster.");
         }
