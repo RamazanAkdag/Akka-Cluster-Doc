@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: akka-cluster-node-2
+  labels:
+    app: akka-bootstrap-demo
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: akka-bootstrap-demo
+  template:
+    metadata:
+      labels:
+        app: akka-bootstrap-demo
+    spec:
+      containers:
+        - name: akka-cluster-node-2
+          image: ramazanakdag/akka-2:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8558
+              protocol: TCP
+          env:
+            - name: AKKA_CLUSTER_BOOTSTRAP_SERVICE_NAME
+              value: akka-cluster-node-2
+          livenessProbe:
+            httpGet:
+              path: /alive
+              port: 8558
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 8558
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: akka-cluster-node-2
+spec:
+  selector:
+    app: akka-bootstrap-demo
+  ports:
+    - protocol: TCP
+      port: 8558
+      targetPort: 8558
+  type: ClusterIP
